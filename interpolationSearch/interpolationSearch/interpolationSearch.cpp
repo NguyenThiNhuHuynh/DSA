@@ -1,40 +1,36 @@
-﻿// VetCan.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// interpolationSearch.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
 #include <iostream>
 using namespace std;
 
-int linearSearch(int a[], int n, int x) {
-    for (int pos = 0; pos < n; pos++) {
-        if (a[pos] == x) {
-            return pos;
+int interpolationSearch(int a[], int n, int x) {
+    int left = 0, right = n - 1;
+
+    while (left <= right) {
+        int mid = left + (right - left) * (x-a[left])/(a[right]-a[left]);
+        if (x == a[mid]) {
+            return mid;
+        }
+        if (x < a[mid]) {
+            right = mid - 1;
+        }
+        else {
+            left = mid + 1;
         }
     }
     return -1;
 }
 
-int linearSearch2(int a[], int n, int x) {
-    int i = 0;
-    a[n] = x;
-    while (a[i] != x) {
-        i ++;
-    }
-    if (i < n) { return i; }
-    return -1;
-}
-
 int main()
 {
-    int a[] = { 5, 3, 7, 2, 9 };
+    int a[] = { 2, 3, 5, 7, 9, 12, 15 };
     int n = sizeof(a) / sizeof(a[0]);
-    //int a[6] = { 5, 3, 7, 2, 9 }; // khai báo 6 phần tử, ô cuối để làm lính canh
-    //int n = 5; // chỉ có 5 phần tử thực sự
-
     int x;
 
     cout << "Nhap gia tri can tim: ";
     cin >> x;
-    int result = linearSearch(a, n, x);
+    int result = interpolationSearch(a, n, x);
     if (result != -1) {
         cout << "Tim thay " << x << " o vi tri " << result << endl;
     }
@@ -43,6 +39,7 @@ int main()
     }
     return 0;
 }
+
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
 // Debug program: F5 or Debug > Start Debugging menu

@@ -46,7 +46,7 @@ public:
                 if (nums[i] == 0) {
                     res.push_back(total);
                 }
-                else {
+                else { 
                     res.push_back(0);
                 }
             }
